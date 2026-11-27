@@ -21,6 +21,15 @@ Alternative path if using Steam Flatpak. (I assume this is correct).
 cmake . -Bbuild -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$HOME/.var/app/com.valvesoftware.Steam/.local
 ```
 
+## Using on ARM64: Steam snap with FEX (NVIDIA DGX Spark)
+
+When Steam runs as a snap on aarch64, games are x86_64 under FEX. Neither the
+native build nor the `~/.local/share/vulkan` layer directory applies, and both
+fail silently because the loader simply never loads the layer. See
+[docs/arm64-steam-snap-fex.md](docs/arm64-steam-snap-fex.md) for the cross-build
+and install steps, and `scripts/verify-vulkan-layer.sh` to confirm the layer is
+actually loaded.
+
 ## To use
 
 The layer needs a config file to operate. See the folders under `hacks/` for some ready to go config files.
@@ -42,7 +51,7 @@ Some config files use a roundtripCache to provide patched SPIR-V.
 In this case, `cache/` folder next to pyroveil.json must also be copied.
 It is likely easier to simply use the path that you checked out for the `pyroveil.json`. E.g.
 
-`PYROVEIL=1 PYROVEIL_CONFIG=/path/to/pyroveil/checkout/hacks/monster-hunter-wilds-nv/pyroveil.json %command%`
+`PYROVEIL=1 PYROVEIL_CONFIG=/path/to/pyroveil/checkout/hacks/monster-hunter-wilds-benchmark-nv/pyroveil.json %command%`
 
 ## To use with Bottles (Flatpak)
 
